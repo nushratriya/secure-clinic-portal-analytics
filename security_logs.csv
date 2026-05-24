@@ -1,0 +1,15 @@
+Log Id,Timestamp,Username,Role,Status,Message
+14,2026-05-23 22:16:59,nush,Esthetician,SUCCESS,Authorized clinical chart data view initialization.
+13,2026-05-22 18:22:12,k,UNKNOWN,DENIED,MALICIOUS PROBE: Access attempted with invalid username.
+12,2026-05-22 18:21:55,nush,Esthetician,DENIED,FAILED AUTHENTICATION: Incorrect password submitted.
+11,2026-05-22 18:06:37,hacker4,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+10,2026-05-22 18:06:32,hackhack,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+9,2026-05-22 18:06:19,hacker test,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+8,2026-05-22 17:46:13,nush,Esthetician,SUCCESS,Authorized clinical chart data view initialization.
+7,2026-05-22 17:45:50,it_admin,Admin,SUCCESS,Administrator cleared. Loading security core terminal telemetry.
+6,2026-05-22 17:45:38,nush,Esthetician,DENIED,FAILED AUTHENTICATION: Incorrect password attempt submitted.
+5,2026-05-22 17:45:32,nush,Esthetician,DENIED,FAILED AUTHENTICATION: Incorrect password attempt submitted.
+4,2026-05-22 17:45:27,hacker2,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+3,2026-05-22 17:45:15,hacker,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+2,2026-05-22 17:45:05,hi,UNKNOWN,DENIED,MALICIOUS PROBE: Attempted access with non-existent username.
+1,2026-05-22 17:44:45,nush,Esthetician,SUCCESS,Authorized clinical chart data view initialization.
