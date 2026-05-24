@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aesthetics Portal - Management Center</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: #fcfcfc; margin: 0; display: flex; height: 100vh; color: #333; }
+        
+        /* Sidebar Layout */
+        .sidebar { width: 260px; background-color: #111; color: white; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .logo { font-size: 18px; font-weight: 300; letter-spacing: 3px; margin-bottom: 40px; text-align: center; border-bottom: 1px solid #222; padding-bottom: 20px; }
+        .user-info { margin-bottom: 30px; padding: 15px; background: #1a1a1a; border-radius: 8px; font-size: 13px; border: 1px solid #252525; }
+        .role-badge { display: inline-block; font-size: 10px; background: #333; padding: 3px 8px; border-radius: 10px; margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* Main Content Workspace */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        h2 { font-weight: 300; letter-spacing: 1px; color: #111; margin-top: 0; }
+        
+        /* Beautiful Aesthetic Data Tables */
+        .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); border: 1px solid #f0f0f0; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th { text-align: left; padding: 12px; background-color: #f8f9fa; font-weight: 600; color: #666; border-bottom: 1px solid #eee; }
+        td { padding: 12px; border-bottom: 1px solid #f9f9f9; color: #444; }
+        tr:hover { background-color: #fdfdfd; }
+
+        /* Security Warning Component */
+        .denied-box { background-color: #fff5f5; border: 1px solid #fecaca; color: #c53030; padding: 20px; border-radius: 8px; margin-top: 15px; }
+        .status-badge-success { color: #2f855a; font-weight: bold; }
+        .status-badge-denied { color: #c53030; font-weight: bold; }
+        
+        .logout-btn { color: #aaa; text-decoration: none; font-size: 14px; text-align: center; padding: 10px; border-radius: 6px; transition: background 0.2s; display: block; }
+        .logout-btn:hover { background: #222; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="logo">MEDI SPA</div>
+            <div class="user-info">
+                <div>Connected: <strong>{{ username }}</strong></div>
+                <div class="role-badge">{{ role }}</div>
+                <div style="font-size: 11px; color: #888; margin-top: 12px; border-top: 1px solid #252525; padding-top: 8px;">
+                    <strong>Last System Activity:</strong><br>
+                    <span style="color: #bbb;">{{ last_login }}</span>
+                </div>
+            </div>
+        </div>
+        <a href="/logout" class="logout-btn">→ Sign Out</a>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="card">
+            <h2>📅 Today's Schedule & Bookings</h2>
+            <table>
+                <tr>
+                    <th>Time</th>
+                    <th>Client Name</th>
+                    <th>Requested Service</th>
+                    <th>Room</th>
+                </tr>
+                <tr>
+                    <td>10:00 AM</td>
+                    <td>A*******a</td>
+                    <td>HydraFacial Luxury</td>
+                    <td>Suite Suite A</td>
+                </tr>
+                <tr>
+                    <td>01:30 PM</td>
+                    <td>V********a</td>
+                    <td>Laser Skin Resurfacing</td>
+                    <td>Laser Room 2</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>💉 Clinical Treatment Charts</h2>
+            {% if role == 'Esthetician' %}
+                <p style="color: #2f855a; font-size: 14px;">✓ <strong>RBAC Verified:</strong> Your provider credentials allow clearance into clinical files.</p>
+                <table>
+                    <tr>
+                        <th>Client</th>
+                        <th>Skin Analysis notes</th>
+                        <th>Active Formula Prescription</th>
+                    </tr>
+                    <tr>
+                        <td>Client Alpha</td>
+                        <td>High sensitivity to typical glycolic peels. Fitzpatrick Type II.</td>
+                        <td>0.025% Tretinoin Cream baseline cream</td>
+                    </tr>
+                </table>
+            {% else %}
+                <div class="denied-box">
+                    <strong>✕ ACCESS BLOCK ENFORCED (Data Minimization Policy)</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 13px;">Your account tier ('{{ role }}') does not possess structural cryptographic privileges to parse medical charting data logs.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>📊 Real-Time Security Audit Logs (SQL Feed)</h2>
+            {% if role == 'Admin' %}
+                <p style="font-size: 13px; color: #666;">Secured Terminal: This table reads directly from the database's <code>web_audit_logs</code> schema.</p>
+                <table>
+                    <tr>
+                        <th>Timestamp (Local)</th>
+                        <th>Operator</th>
+                        <th>Assigned Role</th>
+                        <th>System Status</th>
+                    </tr>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log[1] }}</td>
+                        <td>{{ log[2] }}</td>
+                        <td>{{ log[3] }}</td>
+                        <td>
+                            {% if log[4] == 'SUCCESS' %}
+                                <span class="status-badge-success">✓ {{ log[4] }}</span>
+                            {% else %}
+                                <span class="status-badge-denied">✕ {{ log[4] }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="denied-box" style="background-color: #f9f9f9; border-color: #e0e0e0; color: #666;">
+                    <strong>🔒 COMPLIANCE RESTRICTION</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 13px;">Security incident logs are restricted exclusively to System Administrators and IT Security Officers to prevent log-tampering risks.</p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+</html>
